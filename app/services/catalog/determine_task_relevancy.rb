@@ -5,6 +5,7 @@ module Catalog
     end
 
     def process
+      Rails.logger.info("Topic #{@topic.payload["task_id"]}")
       Insights::API::Common::Request.with_request(order_item_context) do
         @task = TopologicalInventoryApiClient::Task.new(
           :id      => @topic.payload["task_id"],
