@@ -8,6 +8,7 @@ module Catalog
     end
 
     def process
+      raise "Not doing it"
       @order.order_items.each do |order_item|
         Rails.logger.error("Madhu create approval request for order_item #{order_item.id}")
         submit_approval_requests(order_item)
