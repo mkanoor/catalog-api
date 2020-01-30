@@ -8,7 +8,6 @@ module Catalog
     end
 
     def process
-      raise "Not doing it"
       @order.order_items.each do |order_item|
         Rails.logger.error("Madhu create approval request for order_item #{order_item.id}")
         submit_approval_requests(order_item)
@@ -29,7 +28,7 @@ module Catalog
         api.create_request(Catalog::CreateRequestBodyFrom.new(@order, order_item, @task).process.result)
       end
 
-      Rails.logger.error("Madhu created approval request #{response.id})
+      Rails.logger.error("Madhu created approval request #{response.id}")
       order_item.approval_requests.create!(
         :approval_request_ref => response.id,
         :state                => response.decision.to_sym,
