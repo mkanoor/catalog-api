@@ -3,6 +3,7 @@ module Api
     module Mixins
       module IndexMixin
         def scoped(relation)
+          Rails.logger.error("Scoped Headers #{Insights::API::Common::Request.current_forwardable.to_s}")
           relation = rbac_scope(relation) if Insights::API::Common::RBAC::Access.enabled?
           if relation.model.respond_to?(:taggable?) && relation.model.taggable?
             ref_schema = {relation.model.tagging_relation_name => :tag}
@@ -13,6 +14,7 @@ module Api
         end
 
         def collection(base_query)
+          Rails.logger.error("Collection Headers #{Insights::API::Common::Request.current_forwardable.to_s}")
           render :json => Insights::API::Common::PaginatedResponse.new(
             :base_query => filtered(scoped(base_query)),
             :request    => request,
@@ -22,6 +24,7 @@ module Api
         end
 
         def rbac_scope(relation)
+          Rails.logger.error("rbac_scope Headers #{Insights::API::Common::Request.current_forwardable.to_s}")
           if catalog_administrator?
             relation
           else
