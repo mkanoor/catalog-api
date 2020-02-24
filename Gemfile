@@ -5,6 +5,7 @@ require File.join(Bundler::Plugin.index.load_paths("bundler-inject")[0], "bundle
 
 gem 'rails', '>= 5.2.2.1', '~> 5.2.2'
 
+# comment
 group :development, :test do
   gem 'byebug', platform: :mri
   gem 'climate_control'
