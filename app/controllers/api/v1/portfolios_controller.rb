@@ -4,6 +4,9 @@ module Api
       include Api::V1::Mixins::IndexMixin
 
       def index
+        Rails.logger.info("This is a info message to check request id")
+        Rails.logger.error("This is a error message to check request id")
+        Rails.logger.warn("This is a warn message to check request id")
         if params[:tag_id]
           collection(Tag.find(params.require(:tag_id)).portfolios)
         else
