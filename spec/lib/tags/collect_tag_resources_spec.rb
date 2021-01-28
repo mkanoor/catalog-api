@@ -1,7 +1,6 @@
 describe Tags::CollectTagResources do
   let(:order) { create(:order) }
-  let(:task) { CatalogInventoryApiClient::Task.new }
-  let(:subject) { described_class.new(task, order) }
+  let(:subject) { described_class.new(order) }
 
   context "#process" do
     let(:tag_resources) do
