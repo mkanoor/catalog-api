@@ -20,7 +20,7 @@ module Tags
     end
 
     def remote_tag_resources
-      @remote_tag_resources = CatalogInventory::RemoteInventory.new(@order_item).process.tag_resources
+      @remote_tag_resources = ::Tags::CatalogInventory::RemoteInventory.new(@order_item).process.tag_resources
     end
   end
 end

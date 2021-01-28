@@ -30,8 +30,8 @@ module Tags
       end
 
       def all_tag_collections
-        ::CatalogInventory::Service.call(CatalogInventoryApiClient::ServiceOfferingApi) do |api|
-          api.applied_inventories_tags_for_service_offering(service_offering_id, CatalogInventoryApiClient::AppliedInventoriesParametersServicePlan.new).data
+        ::CatalogInventory::Service.call(::CatalogInventoryApiClient::ServiceOfferingApi) do |api|
+          api.applied_inventories_tags_for_service_offering(service_offering_id, ::CatalogInventoryApiClient::AppliedInventoriesParametersServicePlan.new).data
         end
       end
 
