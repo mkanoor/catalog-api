@@ -5,11 +5,12 @@ module Catalog
     end
 
     def process
+      Rails.logger.info("Topic Payload #{@topic}")
       @task = CatalogInventoryApiClient::Task.new(
         :id     => @topic.payload["task_id"].to_s,
         :state  => @topic.payload["state"],
         :status => @topic.payload["status"],
-        :output => @topic.payload["context"].try(&:with_indifferent_access)
+        :output => @topic.payload["output"].try(&:with_indifferent_access)
       )
 
       find_relevant_order_item
