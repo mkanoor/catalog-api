@@ -16,17 +16,13 @@ module Tags
       private
 
       def consolidate_inventory_tags
-        @tag_resources = all_tag_collections.collect do |tag_collection|
-          tags = tag_collection.collect do |tag|
-            {:tag => tag.tag}
-          end
-
+        @tag_resources = [
           {
             :app_name    => "catalog-inventory",
             :object_type => "ServiceInventory",
-            :tags        => tags
+            :tags        => all_tag_collections
           }
-        end
+        ]
       end
 
       def all_tag_collections
