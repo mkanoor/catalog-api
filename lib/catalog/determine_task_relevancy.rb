@@ -42,7 +42,7 @@ module Catalog
     end
 
     def process_relevant_context
-      if @task.output&.has_key_path?(:service_instance)
+      if @task.output&.has_key?(:url)
         UpdateOrderItem.new(@task, @order_item).process
       elsif @task.output&.has_key_path?(:applied_inventories)
         tag_resources = Tags::CollectTagResources.new(@task, @order_item.order).process.tag_resources
@@ -63,7 +63,7 @@ module Catalog
         Rails.logger.error("Incoming task #{@task.id} had an error while running: #{@task.output}")
       elsif @task.state == "completed"
         Rails.logger.error("Incoming task #{@task.id} is completed but errored: #{@task.output}")
-        if @task.output&.has_key_path?(:service_instance)
+        if @task.output&.has_key?(:url)
           UpdateOrderItem.new(@task, @order_item).process
         else
           @order_item.mark_failed("Order Item Failed")
