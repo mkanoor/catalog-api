@@ -30,9 +30,12 @@ module Tags
       end
 
       def all_tag_collections
+        result = []
         ::CatalogInventory::Service.call(::CatalogInventoryApiClient::ServiceOfferingApi) do |api|
-          api.applied_inventories_tags_for_service_offering(service_offering_id, ::CatalogInventoryApiClient::AppliedInventoriesParametersServicePlan.new).data
+          result = api.applied_inventories_tags_for_service_offering(service_offering_id, ::CatalogInventoryApiClient::AppliedInventoriesParametersServicePlan.new)
         end
+        Rails.logger.info(" Applied Tags #{result}")
+        result
       end
 
       def service_offering_id
