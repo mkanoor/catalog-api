@@ -19,13 +19,13 @@ module Api
             @order.update_message(:info, "Computed Tags")
             Rails.logger.info("Evaluating order processes for order item id #{@item.id}")
             # TODO: Task the first argument is nil, why do we need it here
-            EvaluateOrderProcess.new(nil, @item.order, tag_resources).process
+            ::Catalog::EvaluateOrderProcess.new(nil, @item.order, tag_resources).process
 
             Rails.logger.info("Creating approval request for order_item id #{@item.id}")
             # TODO: Task can ve nil if we are passing in the order_item
             #       Task is then passed into CreateRequestBodyFrom which just sets an instance
             #       variable and then doesn't use it
-            CreateApprovalRequest.new(nil, tag_resources, @item).process
+            ::Catalog::CreateApprovalRequest.new(nil, tag_resources, @item).process
           end
 
           self

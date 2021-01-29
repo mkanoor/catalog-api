@@ -10,19 +10,22 @@ module Tags
       def process
         consolidate_inventory_tags
 
+        Rails.logger.info("Remote Tags #{@tag_resources}")
         self
       end
 
       private
 
       def consolidate_inventory_tags
-        @tag_resources = [
-          {
-            :app_name    => "catalog-inventory",
-            :object_type => "ServiceInventory",
-            :tags        => all_tag_collections
-          }
-        ]
+        tags = all_tag_collections.collect do |tag|
+          {:tag => tag.tag}
+        end
+
+        @tag_resources = [{
+          :app_name    => "catalog-inventory",
+          :object_type => "ServiceInventory",
+          :tags        => tags
+        }]
       end
 
       def all_tag_collections
