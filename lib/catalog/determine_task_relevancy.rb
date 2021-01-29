@@ -13,7 +13,12 @@ module Catalog
         :output => @topic.payload["output"].try(&:with_indifferent_access)
       )
 
+      Rails.logger.info("Incoming task #{@task.id}")
+      Rails.logger.info("Incoming task State #{@task.state}")
+      Rails.logger.info("Incoming task Status #{@task.status}")
+      Rails.logger.info("Incoming task Output #{@task.output}")
       find_relevant_order_item
+      Rails.logger.info("Delegating task #{@task.id}")
       delegate_task
 
       self
